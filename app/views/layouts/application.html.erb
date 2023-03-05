@@ -28,9 +28,6 @@
       <li>
         <a href="/characters">Characters</a>
       </li>
-      <li>
-        <a href="/bookmarks">Bookmarks</a>
-      </li>
 
       <% if session[:user_id] == nil %>
       <li>
@@ -42,6 +39,9 @@
       <% else %>
       <li>
         <a href="/user_sign_out">Sign Out</a>
+      </li>
+      <li>
+        <a href="/bookmarks">Bookmarks</a>
       </li>
       <% end %>
     </ul>

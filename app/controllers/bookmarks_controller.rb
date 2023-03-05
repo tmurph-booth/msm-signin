@@ -19,14 +19,14 @@ class BookmarksController < ApplicationController
 
   def create
     the_bookmark = Bookmark.new
-    the_bookmark.user_id = params.fetch("query_user_id")
+    the_bookmark.user_id = session[:user_id]
     the_bookmark.movie_id = params.fetch("query_movie_id")
 
     if the_bookmark.valid?
       the_bookmark.save
       redirect_to("/bookmarks", { :notice => "Bookmark created successfully." })
     else
-      redirect_to("/bookmarks", { :alert => the_bookmark.errors.full_messages.to_sentence })
+      redirect_to("/movies/#{the_bookmark.movie_id}", { :alert => the_bookmark.errors.full_messages.to_sentence })
     end
   end
 
@@ -39,7 +39,7 @@ class BookmarksController < ApplicationController
 
     if the_bookmark.valid?
       the_bookmark.save
-      redirect_to("/bookmarks/#{the_bookmark.id}", { :notice => "Bookmark updated successfully."} )
+      redirect_to("/bookmarks/#{the_bookmark.id}", { :notice => "Bookmark updated successfully." })
     else
       redirect_to("/bookmarks/#{the_bookmark.id}", { :alert => the_bookmark.errors.full_messages.to_sentence })
     end
@@ -51,6 +51,6 @@ class BookmarksController < ApplicationController
 
     the_bookmark.destroy
 
-    redirect_to("/bookmarks", { :notice => "Bookmark deleted successfully."} )
+    redirect_to("/bookmarks", { :notice => "Bookmark deleted successfully." })
   end
 end
